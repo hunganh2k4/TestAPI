@@ -1,21 +1,14 @@
-const mysql = require('mysql2');
-const dotenv = require('dotenv');
+const mongoose = require("mongoose");
 
-dotenv.config();
+const uri = "mongodb+srv://phanhunganh2004:CWhQEQr2biKIAEvV@backenddb.a66i1.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB";
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-
-db.connect(err => {
-    if (err) {
-        console.error('Lỗi kết nối MySQL:', err);
-        return;
+async function connectDB() {
+    try {
+        await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log("✅ Kết nối MongoDB thành công!");
+    } catch (error) {
+        console.error("❌ Lỗi kết nối MongoDB:", error);
     }
-    console.log('Kết nối MySQL thành công!');
-});
+}
 
-module.exports = db;
+connectDB();

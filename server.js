@@ -1,17 +1,27 @@
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
 const app = express();
-const restaurantRoutes = require('./routes/restaurantRoutes'); // Import tuyến đường
-const productRoutes = require('./routes/productRoutes'); // Import tuyến đường
+app.use(express.json());
+app.use(cors());
 
-const userRoutes = require('./routes/userRoutes'); 
+const uri = "mongodb+srv://anh:AI15ebWHfTUKU3Gp@backenddb.15mch.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB";
 
-app.use('/restaurants', restaurantRoutes); // Gây lỗi nếu restaurantRoutes không phải middleware
-app.use('/products', productRoutes); // Gây lỗi nếu productRoutes không phải middleware
-app.use('/users', userRoutes); // Sử dụng userRoutes
-app.get("/",(req,res)=>{
-    res.send("Hello World!");  
- });
+mongoose.connect(uri)
+    .then(() => console.log("✅ Kết nối MongoDB thành công!"))
+    .catch(err => console.error("❌ Lỗi kết nối MongoDB:", err));
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });
+
+const restaurantRoutes = require("./routes/restaurantRoutes");
+const productRoutes = require("./routes/productRoutes");
+
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/products", productRoutes);
