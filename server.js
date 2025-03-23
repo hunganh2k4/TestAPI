@@ -21,7 +21,13 @@ app.listen(PORT, () => {
 });
 
 const restaurantRoutes = require("./routes/restaurantRoutes");
-const productRoutes = require("./routes/productRoutes");
+// const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+
+const userRoutes = require("./routes/userRoutes");
 
 app.use("/api/restaurants", restaurantRoutes);
-app.use("/api/products", productRoutes);
+// app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
+
+app.use("/api/users", userRoutes);
