@@ -26,8 +26,12 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const userRoutes = require("./routes/userRoutes");
 
+const commentsRoute = require("./routes/commentRoutes");
+
 app.use("/api/restaurants", restaurantRoutes);
 // app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.use("/api/users", userRoutes);
+
+app.use("/api/comments", commentsRoute);
